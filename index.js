@@ -1,6 +1,8 @@
 require('dotenv').config();
-
 const express = require('express');
+
+require('express-async-errors');
+const { errorHandler } = require('./middleware');
 
 const userRouter = require('./routes/user.routes');
 const loginRouter = require('./routes/login.routes');
@@ -15,6 +17,8 @@ app.get('/', (request, response) => {
 
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
+
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`ouvindo porta ${process.env.PORT}`);
