@@ -1,8 +1,21 @@
 const { User } = require('../models');
+const schema = require('../schemas/userSchema');
 
 const postUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
-  console.log(displayName);
+ 
+   const { error } = schema.validate(req.body);
+    if (error) {
+      const [code, message] = error.message.split('|');
+      return res.status(code).json({ message });
+    }  
+
+    const duplicateEmail = await User.findOne({ where: { email } });
+    console.log('logggg', duplicateEmail);
+    if (duplicateEmail === email) {
+      return res.status(409).json({ message: 'User already registered' });
+}
+
   const newUser = await User.create({ displayName, email, password, image });
   
   return res.status(201).json({ newUser });
