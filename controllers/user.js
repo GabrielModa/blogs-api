@@ -11,14 +11,11 @@ const postUser = async (req, res) => {
     }  
 
     const duplicateEmail = await User.findOne({ where: { email } });
-    console.log('logggg', duplicateEmail);
-    if (duplicateEmail === email) {
-      return res.status(409).json({ message: 'User already registered' });
-}
+     if (duplicateEmail) return res.status(409).json({ message: 'User already registered' });
 
-  const newUser = await User.create({ displayName, email, password, image });
+    const newUser = await User.create({ displayName, email, password, image });
   
-  return res.status(201).json({ newUser });
+    return res.status(201).json({ newUser });
 };
 
 module.exports = {

@@ -13,7 +13,7 @@ const Attributes = {
   },
   email: {
     allowNull: false,
-    unique: true,
+    // unique: true,
     type: DataTypes.STRING,
   },
   password: {
