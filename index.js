@@ -2,8 +2,7 @@ require('dotenv').config();
 const express = require('express');
 require('express-async-errors');
 
-const { errorHandler, schemaHandler } = require('./middleware');
-const { userSchema, loginSchema } = require('./schemas');
+const { errorHandler } = require('./middleware');
 const { userRouter, loginRouter } = require('./routes/index.routes');
 
 const app = express();
@@ -14,8 +13,11 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use('/user', schemaHandler(userSchema), userRouter);
-app.use('/login', schemaHandler(loginSchema), loginRouter);
+app.use('/user',
+ userRouter);
+ 
+app.use('/login',
+ loginRouter);
 
 app.use(errorHandler);
 

@@ -1,8 +1,12 @@
 const express = require('express');
-const { postLogin } = require('../controllers/user');
+const { postLogin } = require('../controllers/login');
+const { loginSchema } = require('../schemas');
+const { schemaHandler/* , tokenValidate */ } = require('../middleware');
 
 const router = express.Router();
 
-router.post('/', postLogin);
+router.post('/',
+schemaHandler(loginSchema),
+ postLogin);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const tokenGenerator = require('../helpers/tokenGenerator');
+// const tokenGenerator = require('../helpers/tokenGenerator');
 
 const postUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -12,23 +12,14 @@ const postUser = async (req, res) => {
     return res.status(201).json({ newUser });
 };
 
- const postLogin = async (req, res) => {
-    const { email, password } = req.body;
+//  const getUsers = async (req, res) => {
+//      const { id } = req.body;
 
-    const findEmail = await User.findOne({ where: { email } });
-    const findPassword = await User.findOne({ where: { password } });
-
-    if (!findEmail || !findPassword) return res.status(400).json({ message: 'Invalid fields' });
-
-    const token = tokenGenerator(findEmail, findPassword);
-     return res.status(200).json({ token });
- };
-
-//  const getUsers = assert (req, res) => {
-   
-//  }
+//      const getAll = await User.findAll({ attributes: { exclude: 'id' } });
+//      console.log('consollaum', getAll.User);
+//      res.status(200).json({ message: getAll });
+//     };
 
 module.exports = {
-  postUser,
-  postLogin,
+ postUser, 
 };

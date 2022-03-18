@@ -11,6 +11,7 @@ const userSchema = Joi.object({
   password: Joi.string().min(6)
   .required().messages({
     'any.required': '400|"password" is required',
+    'string.min': '400|"password" length must be at least 6 characters long',
     'string.empty': '400|"password" is not allowed to be empty',
    }),
    
