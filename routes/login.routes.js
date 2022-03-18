@@ -5,8 +5,6 @@ const { schemaHandler/* , tokenValidate */ } = require('../middleware');
 
 const router = express.Router();
 
-router.post('/',
-schemaHandler(loginSchema),
- postLogin);
+router.post('/', schemaHandler(loginSchema), postLogin);
 
 module.exports = router;

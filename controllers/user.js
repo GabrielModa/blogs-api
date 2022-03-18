@@ -1,5 +1,4 @@
 const { User } = require('../models');
-// const tokenGenerator = require('../helpers/tokenGenerator');
 
 const postUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -12,14 +11,14 @@ const postUser = async (req, res) => {
     return res.status(201).json({ newUser });
 };
 
-//  const getUsers = async (req, res) => {
-//      const { id } = req.body;
+ const getUsers = async (_req, res) => {
+     const getAll = await User.findAll({
+      attributes: { exclude: ['password'] } });
 
-//      const getAll = await User.findAll({ attributes: { exclude: 'id' } });
-//      console.log('consollaum', getAll.User);
-//      res.status(200).json({ message: getAll });
-//     };
+     res.status(200).json(getAll);
+    };
 
 module.exports = {
- postUser, 
+ postUser,
+ getUsers, 
 };
