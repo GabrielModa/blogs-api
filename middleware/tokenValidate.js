@@ -3,12 +3,14 @@ const jwt = require('jsonwebtoken');
 module.exports = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    console.log(token);
 
     if (!token) return res.status(401).json({ message: 'Token not found' });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.tokenData = decoded.data;
+    console.log(decoded);
 
     next();
   } catch (error) {
