@@ -8,6 +8,7 @@ const { userRouter, loginRouter } = require('./routes/index.routes');
 const app = express();
 app.use(express.json());
 
+
 app.use('/user',
 userRouter);
 
@@ -21,6 +22,6 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.listen(3000, () => {
-  console.log('ouvindo porta 3000');
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`ouvindo porta ${process.env.PORT}`);
 });
