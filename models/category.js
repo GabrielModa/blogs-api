@@ -18,7 +18,6 @@ module.exports = (sequelize, _DataTypes) => {
     'Category',
     Attributes,
     {
-      underscored: true,
       timestamps: false,
       tableName: 'Categories',
     },
