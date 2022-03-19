@@ -9,15 +9,16 @@ const app = express();
 app.use(express.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
+
+app.use('/user',
+userRouter);
+
+app.use('/login',
+loginRouter);
+
 app.get('/', (request, response) => {
   response.send();
 });
-
-app.use('/user',
- userRouter);
- 
-app.use('/login',
- loginRouter);
 
 app.use(errorHandler);
 
