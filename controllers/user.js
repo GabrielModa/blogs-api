@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const tokenGenerator = require('../helpers');
 
 const postUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -7,8 +8,9 @@ const postUser = async (req, res) => {
      if (duplicateEmail) return res.status(409).json({ message: 'User already registered' });
 
     const newUser = await User.create({ displayName, email, password, image });
+    const tokenUser = tokenGenerator.tokenUser(newUser);
   
-    return res.status(201).json({ newUser });
+    return res.status(201).json({ tokenUser });
 };
 
  const getUsers = async (_req, res) => {
