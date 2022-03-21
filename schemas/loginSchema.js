@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const userSchema = Joi.object({
+const loginSchema = Joi.object({
   
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com'] } })
   .required().messages({
@@ -18,4 +18,4 @@ const userSchema = Joi.object({
    image: Joi.string(),
 });
 
-module.exports = userSchema;
+module.exports = loginSchema;
