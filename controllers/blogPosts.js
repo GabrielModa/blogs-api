@@ -1,20 +1,24 @@
-const { /* BlogPost, */ Category } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const post = async (req, res) => {
    const { title, content, categoryIds } = req.body;
-  //  const { id } = req.params;
 
-  //  const checkPost = BlogPost.findOne({ where: { title, content, categoryIds } });
-  //  console.log(checkPost);
-  //  if (!checkPost) return res.status(400).json({ message: 'Invalid fields' });
+   const allCategory = await Category.findAll();
+   const getCategoryById = allCategory.map(({ id }) => id);
+   
+   const checkId = categoryIds.every((id) => getCategoryById.includes(id));
+   if (!checkId) return res.status(400).json({ message: '"categoryIds" not found' });
 
-   const checkCategory = await Category.findById({ categoryIds });
-   console.log('testeeeee,', checkCategory);
-  //  if (!checkCategory) return res.status(400).json({ message: 'categoryIds not found' });
+   const findToken = await User.findOne({ where: { email: req.tokenData } });
 
-  //  const newPost = BlogPost.create({ id, title, content, categoryIds });
-  // res.status(201).json({ newPost });
-};
+   const newPost = await BlogPost.create(
+     { userId: findToken.id,
+      title,
+      content },
+  );
+
+   res.status(201).json(newPost);
+}; 
 
 module.exports = {
   post,

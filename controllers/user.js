@@ -1,3 +1,4 @@
+const argon2 = require('argon2');
 const { User } = require('../models');
 const tokenGenerator = require('../helpers');
 
@@ -7,8 +8,12 @@ const postUser = async (req, res) => {
     const duplicateEmail = await User.findOne({ where: { email } });
      if (duplicateEmail) return res.status(409).json({ message: 'User already registered' });
 
-    const newUser = await User.create({ displayName, email, password, image });
-    const tokenUser = tokenGenerator.tokenUser(newUser);
+     const hash = await argon2.hash(password);
+
+    await User.create({ displayName, email, password: hash, image });    
+    const tokenPayload = { displayName, email, image };
+
+    const tokenUser = tokenGenerator.tokenUser(tokenPayload);
   
     return res.status(201).json({ tokenUser });
 };
