@@ -1,27 +1,16 @@
 const { DataTypes } = require('sequelize');
 
 const Attributes = {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER,
-  },
   displayName: {
-    allowNull: false,
     type: DataTypes.STRING,
   },
   email: {
-    allowNull: false,
-    // unique: true,
     type: DataTypes.STRING,
   },
   password: {
-    allowNull: false,
     type: DataTypes.STRING,
   },
-  image: { 
-    allowNull: false,
+  image: {
     type: DataTypes.STRING,
   },
 };
