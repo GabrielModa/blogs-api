@@ -20,18 +20,24 @@ const post = async (req, res) => {
    res.status(201).json(newPost);
 };
 
-// const getPost = async (req, res) => {
-//   const allPost = await BlogPost.findAll();
+const getPost = async (req, res) => {
+  const allPost = await BlogPost.findAll();
 
-//   const getAll = await User.findAll({
-//     attributes: { exclude: ['password'] } });
+  const user = await User.findAll({
+    attributes: { exclude: ['password'] } });
 
-//   const allCategory = await Category.findAll();
+    const allCategory = await Category.findAll();
 
-//   return res.status(200).json(allCategory);
-// };
+    const userPost = await allPost.map((postUser) => ({ ...postUser.dataValues,
+     user: user.find((users) => users.id === postUser.dataValues.userId) }));
+
+    const allPosts = await userPost.map((postUser) => ({ ...postUser,
+       categories: allCategory.filter((category) => category.id === postUser.userId) }));  
+
+  return res.status(200).json(allPosts);
+};
 
 module.exports = {
   post,
-  // getPost,
+  getPost,
 };
