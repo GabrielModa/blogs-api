@@ -23,8 +23,7 @@ const post = async (req, res) => {
 const getPost = async (req, res) => {
   const allPost = await BlogPost.findAll();
 
-  const user = await User.findAll({
-    
+  const user = await User.findAll({    
     attributes: { exclude: ['password'] } });
 
     const allCategory = await Category.findAll();
