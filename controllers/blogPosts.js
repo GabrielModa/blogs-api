@@ -24,6 +24,7 @@ const getPost = async (req, res) => {
   const allPost = await BlogPost.findAll();
 
   const user = await User.findAll({
+    
     attributes: { exclude: ['password'] } });
 
     const allCategory = await Category.findAll();
@@ -33,7 +34,7 @@ const getPost = async (req, res) => {
 
     const allPosts = await userPost.map((postUser) => ({ ...postUser,
        categories: allCategory.filter((category) => category.id === postUser.userId) }));  
-
+       
   return res.status(200).json(allPosts);
 };
 
