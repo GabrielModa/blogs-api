@@ -32,7 +32,7 @@ const getPost = async (req, res) => {
      user: user.find((users) => users.id === postUser.dataValues.userId) }));
 
     const allPosts = await userPost.map((postUser) => ({ ...postUser,
-       categories: allCategory.filter((category) => category.id === postUser.userId) }));  
+       categories: allCategory.filter((category) => category.id === postUser.id) }));  
        
   return res.status(200).json(allPosts);
 };
