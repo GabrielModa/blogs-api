@@ -18,8 +18,20 @@ const post = async (req, res) => {
   );
 
    res.status(201).json(newPost);
-}; 
+};
+
+const getPost = async (req, res) => {
+  const allPost = await BlogPost.findAll();
+  
+  const getAll = await User.findAll({
+    attributes: { exclude: ['password'] } });
+
+  const allCategory = await Category.findAll();
+
+  return res.status(200).json(allCategory);
+};
 
 module.exports = {
   post,
+  getPost,
 };
