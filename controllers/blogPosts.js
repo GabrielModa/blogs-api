@@ -21,20 +21,26 @@ const post = async (req, res) => {
 };
 
 const getPost = async (req, res) => {
-  const allPost = await BlogPost.findAll();
+  // const allPost = await BlogPost.findAll();
 
-  const user = await User.findAll({    
-    attributes: { exclude: ['password'] } });
+  // const user = await User.findAll({    
+  //   attributes: { exclude: ['password'] } });
 
-    const allCategory = await Category.findAll();
+  //   const allCategory = await Category.findAll();
 
-    const userPost = await allPost.map((postUser) => ({ ...postUser.dataValues,
-     user: user.find((users) => users.id === postUser.dataValues.userId) }));
+    // const userPost = await allPost.map((postUser) => ({ ...postUser.dataValues,
+    //  user: user.find((users) => users.id === postUser.dataValues.userId) }));
 
-    const allPosts = await userPost.map((postUser) => ({ ...postUser,
-       categories: allCategory.filter((category) => category.id === postUser.id) }));  
+    // const allPosts = await userPost.map((postUser) => ({ ...postUser,
+    //    categories: allCategory.filter((category) => category.id === postUser.userId) }));  
+    
+    const getPostAssociate = await BlogPost.findAll({
+      include: [{ model: User,
+        attributes: { exclude: ['password'] },
+        as: 'user' },
+      ] });
        
-  return res.status(200).json(allPosts);
+  return res.status(200).json(getPostAssociate);
 };
 
 module.exports = {
