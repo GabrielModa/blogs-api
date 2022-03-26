@@ -7,6 +7,9 @@ const Attributes = {
   content: {
     type: DataTypes.STRING,   
   },
+  userId: {
+    type: DataTypes.INTEGER,
+  },
   published: {
     type: DataTypes.DATE,
   },
@@ -19,14 +22,17 @@ module.exports = (sequelize, _DataTypes) => {
   const BlogPost = sequelize.define(
     'BlogPost',
     Attributes,
-    {
-      timestamps: false,
+    { timestamps: false,
       tableName: 'BlogPosts',
     },
   );
 
   BlogPost.associate = (models) => {
-    BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    BlogPost.belongsTo(models.User, { 
+      as: 'user',
+       foreignKey: 'userId', 
+    });
   };
+  
   return BlogPost;
 };
