@@ -35,7 +35,29 @@ const getPost = async (req, res) => {
   return res.status(200).json(getPostAssociate);
 };
 
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+
+    const postId = await BlogPost.findByPk(id);
+
+    const getPostAssociate = await BlogPost.findOne({ where: postId,
+      include: [{ 
+        model: User, 
+         as: 'user',
+          attributes: { exclude: ['password'] },
+        }, 
+        { model: Category,
+           as: 'categories',
+           }],
+       });
+    if (!postId) return res.status(404).json({ message: 'Post does not exist' });
+
+    console.log(postId);
+    return res.status(200).json(getPostAssociate);
+};
+
 module.exports = {
   post,
   getPost,
+  getPostById,
 };
